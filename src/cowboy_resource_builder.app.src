@@ -1,0 +1,8 @@
+{application, cowboy_resource_builder, [
+  {id, "cowboy_resource_builder"},
+  {description, "Simple resource builder using cowboy_resource_owner"},
+  {vsn, "0.1.0"},
+  {registered, []},
+  {applications, [kernel, stdlib]},
+  {env, []}
+]}.
