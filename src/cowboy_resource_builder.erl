@@ -3,7 +3,12 @@
 -export([authorize/4]).
 -export([authorize/5]).
 
-authorize(Scopes, Req, Body, Restricted)->
+authorize(Scopes, Req, Body, Restricted) when is_function(Restricted) ->
+  case cowboy_resource_owner:is_authorized(Scopes, Req) of
+    true -> Body ++ Restricted(cowboy_resource_owner:owner_id(Req));
+    false -> Body
+  end;
+authorize(Scopes, Req, Body, Restricted) ->
   case cowboy_resource_owner:is_authorized(Scopes, Req) of
     true -> Body ++ Restricted;
     false -> Body
